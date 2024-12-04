@@ -9,9 +9,7 @@ from urllib.error import URLError
 
 from exceptions import CantGetCoordinates
 
-from config import USE_ROUNDED_COORDINATES
-
-url = "https://ipinfo.io/json"
+from config import USE_ROUNDED_COORDINATES, GET_OUTER_IP_URL
 
 
 class Coordinates(NamedTuple):
@@ -19,7 +17,7 @@ class Coordinates(NamedTuple):
     longitude: float
 
 
-def get_coordinates() -> Coordinates:
+def get_coordinates(url: str = GET_OUTER_IP_URL) -> Coordinates:
     """Return current coordinates"""
     response = _get_response(url)
     json_dict = _parse_json_responsed(response)
