@@ -3,11 +3,22 @@
 from coordinates import get_coordinates
 from weather_api_service import get_weather
 from weather_formatter import format_weather
+from exceptions import ApiServiceError, CantGetCoordinates
 
 
 def main():
-    coordinates = get_coordinates()
-    weather = get_weather(coordinates)
+    try:
+        coordinates = get_coordinates()
+    except CantGetCoordinates:
+        print("We couldn't get GPS coordinates by your ip address "
+              "on the https://ipinfo.io/json")
+        exit(1)
+    try:
+        weather = get_weather(coordinates)
+    except ApiServiceError:
+        print("We couldn't get weather's data "
+              "on the https://api.openweathermap.org")
+        exit(2)
     print(format_weather(weather))
 
 
