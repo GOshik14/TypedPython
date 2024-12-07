@@ -1,4 +1,6 @@
-USE_ROUNDED_COORDINATES = True
+USE_ROUNDED_COORDINATES = False
+
+SAVE_TO_STORAGE = True
 
 GET_OUTER_IP_URL = "https://ipinfo.io/json"
 

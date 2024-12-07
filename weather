@@ -4,6 +4,9 @@ from coordinates import get_coordinates
 from weather_api_service import get_weather
 from weather_formatter import format_weather
 from exceptions import ApiServiceError, CantGetCoordinates
+from history import save_history, JSONFileWeatherStorage
+from config import SAVE_TO_STORAGE
+from pathlib import Path
 
 
 def main():
@@ -20,6 +23,9 @@ def main():
               "on the https://api.openweathermap.org")
         exit(2)
     print(format_weather(weather))
+    if SAVE_TO_STORAGE:
+        save_history(weather,
+                     JSONFileWeatherStorage(Path.cwd()/"weather_history.json"))
 
 
 if __name__ == "__main__":
